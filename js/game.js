@@ -1,7 +1,8 @@
-var Game = function() {                         //Game Class constructor.
+var Game = function() {
+    'use strict';                         //Game Class constructor.
     this.level = 1;                             //Holds basic variables of the game.
     this.enemies = 4 ;                          //Level, number of enemies, Collectables.
-    this.map;
+    this.map = [];
     this.player  = new Player(images[3][0]);
     this.key  = 0;
     this.gems = 0;
@@ -15,24 +16,24 @@ Game.prototype.newLevel = function() {      //This function holds the logic of t
     this.allGems =[];
     this.allEnemies  = [];
 
-    for (var enemyID = this.allEnemies.length; enemyID < this.enemies + this.level; enemyID++) {
-        enemy = new Enemy(images[2]);               							//this for loop creates enemies and fill up the allEnemies Object.
+    for (var i = 0, len =  this.enemies + this.level; i < len; i++) {
+        var enemy = new Enemy(images[2]);               							//this for loop creates enemies and fill up the allEnemies Object.
         this.allEnemies.push(enemy);
-        this.allEnemies[enemyID].position = [0, this.freeLanes[enemyID % this.freeLanes.length]];
+        this.allEnemies[i].position = [0, this.freeLanes[i % this.freeLanes.length]];
     }
 
     this.key = new Collectable(images[4]);          //creates the key and place it on the map.
     this.key.position = [2, 0];
     this.key.scale = 0.5;
-
     this.vacStone = this.map.freePlace(this.map);   				//stores the stone position on map.
     if (this.level < allMaps.length) {              				//checking if the player in on the last map .
-        for (var gemID = this.allGems.length; gemID < this.gems; gemID++) {
-            gem = new Collectable(images[1][Math.floor((Math.random() * 3))]);
+        for (i = 0, len = this.gems; i < len; i++) {
+            var gem = new Collectable(images[1][Math.floor((Math.random() * 3))]);
             this.allGems.push(gem);                 								//this for loop creates gems and fill up the allGems Object.
-            this.allGems[gemID].position = this.vacStone[Math.floor(Math.random() * this.vacStone.length)];
-            this.vacStone.splice(this.allGems[gemID],1);
-        };
+            this.allGems[i].position = this.vacStone[Math.floor(Math.random() * this.vacStone.length)];
+            this.vacStone.splice(this.allGems[i],1);
+        }
+
     }
     else if (this.level == allMaps.length) {        //if player on last map draw the girl and reset selector.
         this.key.sprite = images[5];
@@ -41,8 +42,7 @@ Game.prototype.newLevel = function() {      //This function holds the logic of t
         this.girl.scale = 1;
     }
     this.player.reset(this.map);                    //reset player.
-}
-
+};
 
 Game.prototype.checkCollisions = function(actor1, actor2, area) { 		//Checking collision between actors.
     var x1 = actor1.position[0] * pixOfGrid[0];
@@ -83,4 +83,4 @@ Game.prototype.eventHandler = function() {                      		//Holds the co
             location.reload();
         }
     }
-}
+};

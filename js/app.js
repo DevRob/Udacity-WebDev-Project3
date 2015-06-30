@@ -20,4 +20,4 @@ var scoreScreen = {                  //Draw the lives remaining, score and level
         ctx.fillText("Lives: " + game.player.lives,380,40);
         ctx.fillText("Level: " + (game.level),200,40);
     }
-}
+};
