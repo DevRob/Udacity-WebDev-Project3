@@ -12,3 +12,7 @@ There are gems on the stone tiles you can collect for extra points(150 each), al
 After the last level you find yourself on an island with your reward. You can restart the game to move the player in the middle of the island.
 
 Check out the working game here: http://devrob.github.io/Udacity-WebDev-project3
+
+I used for this project:
+Wikipedia, piazza Front-End Web Developer Nanodegree P3 Forum, youtube: https://www.youtube.com/watch?v=Bv_5Zv5c-Ts,
+http://www.w3schools.com
