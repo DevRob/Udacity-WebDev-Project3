@@ -6,11 +6,12 @@ var Actor = function(sprite) {      //Parent of all actors: Enemy, Player, Colle
 };
 
 Actor.prototype.render = function() {   //render method for actors if they are exists
-        if (this.exist === true){       //calls the draw function which places the actor
-            draw(this);}                 //on the canvas, positioned in the middle of
+    if (this.exist === true){       //calls the draw function which places the actor
+        draw(this);}                 //on the canvas, positioned in the middle of
 };                                       //tile and deals width scaled actors.
 
 Enemy.prototype = Object.create(Actor.prototype);
+Enemy.prototype.constructor = Enemy;
 
 function Enemy(sprite) {                		//Enemy constructor function. Inherit basic
     Actor.call(this, sprite);           		//properties from Actor and create a random speed
@@ -19,12 +20,13 @@ function Enemy(sprite) {                		//Enemy constructor function. Inherit 
 }
 
 Enemy.prototype.update = function update(dt) {  	//moves enemy across the map and re-spawns it
-        this.position[0] += this.speed *dt;     	//when it reaches the end of the map
-        if (this.position[0] > 6){
-            this.position[0] = -1;}
+    this.position[0] += this.speed *dt;     	//when it reaches the end of the map
+    if (this.position[0] > 6){
+        this.position[0] = -1;}
 };
 
 Collectable.prototype = Object.create(Actor.prototype);
+Collectable.prototype.constructor = Collectable;
 
 function Collectable(sprite) {          //Collectable constructor. Inherit basic
     Actor.call(this, sprite);           //properties from Actor and overwrites scale property.
@@ -32,6 +34,7 @@ function Collectable(sprite) {          //Collectable constructor. Inherit basic
 }
 
 Player.prototype = Object.create(Actor.prototype);
+Player.prototype.constructor = Player;
 
 function Player(sprite) {               //Collectable constructor. Inherit basic
     Actor.call(this, sprite);           //properties and adds lives, score and step
@@ -41,7 +44,7 @@ function Player(sprite) {               //Collectable constructor. Inherit basic
 }
 
 Player.prototype.update = function() {
-    newPos = [this.position[0] + this.step[0], this.position[1] + this.step[1]];    //update player position after checking the boundaries
+    var newPos = [this.position[0] + this.step[0], this.position[1] + this.step[1]];    //update player position after checking the boundaries
     if (game.map.layout[newPos[1] * game.map.numCols + newPos[0]] !== "w") {        //checking for not allowed tiles on map, water in this case
         if (newPos[0] >= 0 && newPos[0] < game.map.numCols){                        //checking for map boundaries (left-right)
             this.position[0] = newPos[0];
@@ -133,7 +136,7 @@ var mapLayouts = [                              //holds the maps in an Array
 ];
 
 var Maps = function(layout, col, gem) {         	//Constructor function of map.
-    this.layout = layout;				//Need 3 arguments: layout(Array that hold the representation of the map)
+    this.layout = layout;				                  //Need 3 arguments: layout(Array that hold the representation of the map)
     this.numCols = col;                         	//col: number of column on the map
     this.numRows = this.layout.length / col;    	//gem: number of gems(collectables) on the map
     this.startPosition = [2, this.numRows - 1];
@@ -141,17 +144,17 @@ var Maps = function(layout, col, gem) {         	//Constructor function of map.
 };
 
 var allMaps  = [];
-for (var mapID = allMaps.length; mapID < mapLayouts.length; mapID++) {  //Generates the allMaps object which contains all the maps
-        map = new Maps(mapLayouts[mapID], 5, mapID + 1);
-        this.allMaps.push(map);
+for (var i = 0, len =  mapLayouts.length; i < len; i++) {
+    var map = new Maps(mapLayouts[i], 5, i + 1);      //this for loop creates enemies and fill up the allEnemies Object.
+    this.allMaps.push(map);
 }
 
 Maps.prototype.freeLane = function(map) {       //Checking for rows on the map which built up only from stones
-    freeLanes = [];                             //this function determine where the enemy can spawn.
+    var freeLanes = [];                             //this function determine where the enemy can spawn.
     var flag = 0;
-    for (row = 0; row < map.numRows; row++) {
+    for (var row = 0; row < map.numRows; row++) {
         if (map.layout[row * map.numCols] == 's') {
-            for (col = 0; col < map.numCols; col++) {
+            for (var col = 0; col < map.numCols; col++) {
                 if (map.layout[row * map.numCols] != map.layout[row * map.numCols + col]) {
                     flag = 1;
                 }
@@ -167,8 +170,8 @@ Maps.prototype.freeLane = function(map) {       //Checking for rows on the map w
 
 Maps.prototype.freePlace = function(map) {      	//Checking for position of the stone tiles
     var tiles = [];                             	//where the collectables can spawn.
-    for (row = 0; row < map.numRows; row++) {
-        for (col = 0; col < map.numCols; col++) {
+    for (var row = 0; row < map.numRows; row++) {
+        for (var col = 0; col < map.numCols; col++) {
             if (map.layout[row * map.numCols + col] == 's') {
                  tiles.push([col, row]);
             }
