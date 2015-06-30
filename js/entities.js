@@ -3,12 +3,12 @@ var Actor = function(sprite) {      //Parent of all actors: Enemy, Player, Colle
     this.sprite = sprite;
     this.exist = true;
     this.scale = 1;
-}
+};
 
 Actor.prototype.render = function() {   //render method for actors if they are exists
         if (this.exist === true){       //calls the draw function which places the actor
-            draw(this)}                 //on the canvas, positioned in the middle of
-}                                       //tile and deals width scaled actors.
+            draw(this);}                 //on the canvas, positioned in the middle of
+};                                       //tile and deals width scaled actors.
 
 Enemy.prototype = Object.create(Actor.prototype);
 
@@ -21,8 +21,8 @@ function Enemy(sprite) {                		//Enemy constructor function. Inherit 
 Enemy.prototype.update = function update(dt) {  	//moves enemy across the map and re-spawns it
         this.position[0] += this.speed *dt;     	//when it reaches the end of the map
         if (this.position[0] > 6){
-            this.position[0] = -1;};
-}
+            this.position[0] = -1;}
+};
 
 Collectable.prototype = Object.create(Actor.prototype);
 
@@ -51,7 +51,7 @@ Player.prototype.update = function() {
         }
     }
     this.step = [0, 0];
-}
+};
 
 Player.prototype.handleInput = function(key) {      //player handle input for moving the player around.
     if(key === 'left')
@@ -62,11 +62,11 @@ Player.prototype.handleInput = function(key) {      //player handle input for mo
         this.step[0] = 1;
     if(key === 'down')
         this.step[1] = 1;
-}
+};
 
 Player.prototype.reset = function(map) {        //reset player start position.
     this.position = [2, map.numRows - 1];
-}
+};
 
 var images = [                                  //image Array to sort images
         //mapBlocks:[0]
@@ -86,7 +86,7 @@ var images = [                                  //image Array to sort images
         ['images/Key.png'],
         //selector:[5]
         ['images/Selector.png'],
-]
+];
 
 var mapLayouts = [                              //holds the maps in an Array
     ['w', 'w', 'g', 'w', 'w',                   //'s' stone
@@ -144,7 +144,7 @@ var allMaps  = [];
 for (var mapID = allMaps.length; mapID < mapLayouts.length; mapID++) {  //Generates the allMaps object which contains all the maps
         map = new Maps(mapLayouts[mapID], 5, mapID + 1);
         this.allMaps.push(map);
-};
+}
 
 Maps.prototype.freeLane = function(map) {       //Checking for rows on the map which built up only from stones
     freeLanes = [];                             //this function determine where the enemy can spawn.
@@ -153,17 +153,17 @@ Maps.prototype.freeLane = function(map) {       //Checking for rows on the map w
         if (map.layout[row * map.numCols] == 's') {
             for (col = 0; col < map.numCols; col++) {
                 if (map.layout[row * map.numCols] != map.layout[row * map.numCols + col]) {
-                    flag = 1
+                    flag = 1;
                 }
             }
-            if (flag == 0) {
-                freeLanes.push(row)
+            if (flag === 0) {
+                freeLanes.push(row);
             }
-            flag = 0
+            flag = 0;
         }
     }
-    return freeLanes
-}
+    return freeLanes;
+};
 
 Maps.prototype.freePlace = function(map) {      	//Checking for position of the stone tiles
     var tiles = [];                             	//where the collectables can spawn.
@@ -175,4 +175,4 @@ Maps.prototype.freePlace = function(map) {      	//Checking for position of the 
         }
     }
     return tiles;
-}
+};

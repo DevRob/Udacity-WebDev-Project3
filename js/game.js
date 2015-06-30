@@ -1,7 +1,7 @@
 var Game = function() {                         //Game Class constructor.
     this.level = 1;                             //Holds basic variables of the game.
     this.enemies = 4 ;                          //Level, number of enemies, Collectables.
-    this.map;
+    this.map = [];
     this.player  = new Player(images[3][0]);
     this.key  = 0;
     this.gems = 0;
@@ -32,7 +32,7 @@ Game.prototype.newLevel = function() {      //This function holds the logic of t
             this.allGems.push(gem);                 								//this for loop creates gems and fill up the allGems Object.
             this.allGems[gemID].position = this.vacStone[Math.floor(Math.random() * this.vacStone.length)];
             this.vacStone.splice(this.allGems[gemID],1);
-        };
+        }
     }
     else if (this.level == allMaps.length) {        //if player on last map draw the girl and reset selector.
         this.key.sprite = images[5];
@@ -41,7 +41,7 @@ Game.prototype.newLevel = function() {      //This function holds the logic of t
         this.girl.scale = 1;
     }
     this.player.reset(this.map);                    //reset player.
-}
+};
 
 
 Game.prototype.checkCollisions = function(actor1, actor2, area) { 		//Checking collision between actors.
@@ -83,4 +83,4 @@ Game.prototype.eventHandler = function() {                      		//Holds the co
             location.reload();
         }
     }
-}
+};
