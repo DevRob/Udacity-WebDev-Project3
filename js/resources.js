@@ -110,4 +110,4 @@
     };
 })();
 
-var pixOfGrid = [101, 83];
+var pixOfGrid = [80, 67];

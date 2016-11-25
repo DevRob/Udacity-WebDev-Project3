@@ -15,9 +15,9 @@ document.addEventListener('keyup', function(e) {
 
 var scoreScreen = {                  //Draw the lives remaining, score and level on canvas
     render : function() {
-        ctx.font = "30px Verdana";
-        ctx.fillText("Score: " + game.player.score,0,40);
-        ctx.fillText("Lives: " + game.player.lives,380,40);
-        ctx.fillText("Level: " + (game.level),200,40);
+        ctx.font = "25px Verdana";
+        ctx.fillText("Score: " + game.player.score,0,30);
+        ctx.fillText("Lives: " + game.player.lives,300,30);
+        ctx.fillText("Level: " + (game.level),150,30);
     }
 };
