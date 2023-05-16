@@ -72,66 +72,62 @@ Player.prototype.reset = function(map) {        //reset player start position.
 };
 
 var images = [                                  //image Array to sort images
-        //mapBlocks:[0]
+
         {'s' : 'images/stone-block.png',
          'w' : 'images/water-block.png',
-         'g' : 'images/grass-block.png'},
-        //gems:[1]
+         'g' : 'images/grass-block.png',
+         'e' : 'images/empty-block.png'},
         ['images/Gem_Blue.png',
          'images/Gem_Green.png',
          'images/Gem_Orange.png'],
-        //enemie:[2]
         ['images/enemy-bug.png'],
-        //player:[3]
         ['images/char-boy.png',
          'images/char-pink-girl.png'],
-        //key:[4]
         ['images/Key.png'],
-        //selector:[5]
         ['images/Selector.png'],
 ];
 
 var mapLayouts = [                              //holds the maps in an Array
-    ['w', 'w', 'g', 'w', 'w',                   //'s' stone
-     's', 's', 's', 's', 's',                   //'w' water
-     's', 's', 's', 's', 's',                   //'g' grass
-     's', 's', 's', 's', 's',
-     'g', 'g', 'g', 'g', 'g',                   //this Array is expandable or reducible.
-     'g', 'g', 'g', 'g', 'g'],                  //This program written in a way that it can handle changes in this Array
+    ['w', 'w', 'g', 'w', 'w', 'w',                   //'s' stone
+     's', 's', 's', 's', 's', 's',                   //'w' water
+     's', 's', 's', 's', 's', 's',                   //'g' grass
+     's', 's', 's', 's', 's', 's',
+     'g', 'g', 'g', 'g', 'g', 'g',                   //this Array is expandable or reducible.
+     'g', 'g', 'g', 'g', 'g', 'g'],                  //This program written in a way that it can handle changes in this Array
                                                 //Simply add or delete a SubArray from mapLayouts Array to change the
-     ['w', 'w', 'g', 'w', 'w',                  //number of levels or change the letters which represent the tiles.
-      's', 's', 's', 's', 's',
-      's', 's', 'w', 'w', 'w',
-      's', 's', 's', 's', 's',
-      's', 'w', 'w', 's', 's',
-      's', 's', 's', 's', 's',
-      'g', 'g', 'g', 'g', 'g'],
+     ['w', 'w', 'g', 'w', 'w', 'w',                  //number of levels or change the letters which represent the tiles.
+      's', 's', 's', 's', 's', 's',
+      's', 's', 'w', 'w', 'w', 's',
+      's', 's', 's', 's', 's', 's',
+      's', 'w', 'w', 's', 's', 's',
+      's', 's', 's', 's', 's', 's',
+      'g', 'g', 'g', 'g', 'g', 'g'],
 
-     ['g', 'w', 'g', 'w', 'g',
-      's', 's', 's', 'w', 'w',
-      's', 's', 's', 's', 's',
-      's', 's', 'w', 'w', 'w',
-      's', 's', 's', 's', 's',
-      's', 's', 's', 's', 's',
-      'w', 'w', 'w', 'g', 'g',
-      'g', 'g', 'g', 'g', 'g'],
+     ['g', 'w', 'g', 'w', 'g', 's',
+      's', 's', 's', 'w', 'w', 'w',
+      's', 's', 's', 's', 's', 's',
+      's', 's', 'w', 'w', 'w', 'w',
+      's', 's', 's', 's', 's', 's',
+      's', 's', 's', 's', 's', 's',
+      'w', 'w', 'w', 'g', 'g', 's',
+      'g', 'g', 'g', 'g', 'g', 'g'],
 
-     ['g', 'w', 'g', 'w', 'g',
-      's', 's', 's', 's', 's',
-      'w', 'w', 's', 's', 's',
-      's', 's', 's', 's', 's',
-      's', 's', 's', 's', 's',
-      's', 's', 'w', 'w', 'w',
-      's', 's', 's', 's', 's',
-      's', 's', 's', 's', 's',
-      'g', 'g', 'g', 'g', 'g'],
+     ['g', 'w', 'g', 'w', 'w', 'g',
+      's', 's', 's', 's', 's', 's',
+      'w', 'w', 's', 's', 's', 's',
+      's', 's', 's', 's', 's', 's',
+      's', 's', 's', 's', 's', 's',
+      's', 's', 'w', 'w', 'w', 'w',
+      's', 's', 's', 's', 's', 's',
+      's', 's', 's', 's', 's', 's',
+      'g', 'g', 'g', 'g', 'g', 'g'],
 
-     ['w', 'w', 'w', 'w', 'w',
-      'w', 'g', 'g', 'g', 'w',
-      'w', 'g', 's', 'g', 'w',
-      'w', 'g', 'g', 'g', 'w',
-      'w', 'w', 'g', 'w', 'w',
-      'w', 'w', 'g', 'w', 'w']
+     ['w', 'w', 'w', 'w', 'w', 'w',
+      'w', 'g', 'g', 'g', 'w', 'w',
+      'w', 'g', 's', 'g', 'w', 'w',
+      'w', 'g', 'g', 'g', 'w', 'w',
+      'w', 'w', 'g', 'w', 'w', 'w',
+      'w', 'w', 'g', 'w', 'w', 'w']
 
 ];
 
@@ -145,7 +141,7 @@ var Maps = function(layout, col, gem) {         	//Constructor function of map.
 
 var allMaps  = [];
 for (var i = 0, len =  mapLayouts.length; i < len; i++) {
-    var map = new Maps(mapLayouts[i], 5, i + 1);      //this for loop creates enemies and fill up the allEnemies Object.
+    var map = new Maps(mapLayouts[i], 6, i + 1);      //this for loop creates enemies and fill up the allEnemies Object.
     this.allMaps.push(map);
 }
 
